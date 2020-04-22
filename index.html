@@ -10,12 +10,16 @@
     <main>
         <section class="welcome"></section>
         <section class="instructions"></section>
-        <form class="bands">
-            <input type="text" name="bandName" id="bandName">
-        </form>
-        <button id="addBand">Add Band</button>
-        <article class="bandList"></article>
-        <button id="saveBands">Save Band Lineup</button>
+        <div class="form_list_container">
+            <form class="bands">
+                <input type="text" name="bandName" id="bandName">
+            </form>
+            <button id="addBand">Add Band</button>
+            <div class="list_container">
+                <article class="bandList"></article>
+                <button id="saveBands">Save Band Lineup</button>
+            </div>
+        </div>
     </main>
     <script src="main.js"></script>
 </body>
