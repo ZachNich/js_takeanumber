@@ -17,18 +17,21 @@ const takeNumber = function (bandName) {
 document.querySelector('#addBand').addEventListener("click", event => {
     const bandName = document.querySelector('#bandName').value;
     if (bandName !== '') {
-        bandList.innerHTML += `<li><button class="up ${bandNumber}">⯅</button><button class="down ${bandNumber}">⯆</button><p>${takeNumber(bandName)}</p><button class="delete">⛔</button></li>`;
+        bandList.innerHTML += `<li id="${bandNumber}"><button class="up">⯅</button><button class="down">⯆</button><p>${takeNumber(bandName)}</p><button class="delete">⛔</button></li>`;
     }
 });
 
 // moves band name up the list when up button clicked
 
 document.querySelector('.list_container').addEventListener('click', event => {
-    if (event.target.classList.contains('up') && event.target.classList.contains('1') !== true) {
-        const currentBandNumber = event.target.classList[1];
-        event.target.className = `up ${currentBandNumber - 1}`;
+    const currentBandNumber = Number(event.target.parentElement.id);
+    if (event.target.classList.contains('up') && event.target.parentElement.id !== '1') {
         const currentBand = document.querySelectorAll('.up')[currentBandNumber - 1].parentElement;
         const previousBand = document.querySelectorAll('.up')[currentBandNumber - 2].parentElement;
+        event.target.parentElement.id = `${currentBandNumber - 1}`;
+        previousBand.id = `${currentBandNumber}`;
+        console.log(currentBand);
+        console.log(previousBand);
         const parentEl = currentBand.parentElement;
         parentEl.insertBefore(currentBand, previousBand);
     }
