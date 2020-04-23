@@ -5,20 +5,31 @@ document.querySelector('.instructions').innerHTML += `<p>Enter a band name below
 
 // outputs user's input to the DOM when user clicks save button
 // outputs ordered numbers (1, 2, 3, etc.) before band name to make a list
-// outputs delete button to the right of band name
+// outputs up and down buttons to the left, delete button to the right of band name
+// no  output if no name given
+
 const bandList = document.querySelector('.bandList');
-let bandNumber = 1
+let bandNumber = 1;
+const takeNumber = function (bandName) {
+    return bandNumber++ + '. ' + bandName;
+}        
 
 document.querySelector('#addBand').addEventListener("click", event => {
     const bandName = document.querySelector('#bandName').value;
     if (bandName !== '') {
-        const takeNumber = function (bandName) {
-            return bandNumber++ + '. ' + bandName;
-        }
-        bandList.innerHTML += `<section><ul><li><button class="up ${bandNumber}">⯅</button><button class="down ${bandNumber}">⯆</button><p>${takeNumber(bandName)}</p><button class="delete">⛔</button></li></ul></section>`;
+        bandList.innerHTML += `<li><button class="up ${bandNumber}">⯅</button><button class="down ${bandNumber}">⯆</button><p>${takeNumber(bandName)}</p><button class="delete">⛔</button></li>`;
     }
 });
 
+// moves band name up the list when up button clicked
 
-
-
+document.querySelector('.list_container').addEventListener('click', event => {
+    if (event.target.classList.contains('up') && event.target.classList.contains('1') !== true) {
+        const currentBandNumber = event.target.classList[1];
+        event.target.className = `up ${currentBandNumber - 1}`;
+        const currentBand = document.querySelectorAll('.up')[currentBandNumber - 1].parentElement;
+        const previousBand = document.querySelectorAll('.up')[currentBandNumber - 2].parentElement;
+        const parentEl = currentBand.parentElement;
+        parentEl.insertBefore(currentBand, previousBand);
+    }
+})
