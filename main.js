@@ -30,8 +30,6 @@ document.querySelector('.list_container').addEventListener('click', event => {
         const previousBand = document.querySelectorAll('.up')[currentBandNumber - 2].parentElement;
         event.target.parentElement.id = `${currentBandNumber - 1}`;
         previousBand.id = `${currentBandNumber}`;
-        console.log(currentBand);
-        console.log(previousBand);
         const parentEl = currentBand.parentElement;
         parentEl.insertBefore(currentBand, previousBand);
     }
