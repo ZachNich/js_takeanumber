@@ -22,15 +22,45 @@ document.querySelector('#addBand').addEventListener("click", event => {
 });
 
 // moves band name up the list when up button clicked
-
+// doesn't do anything if first list item is clicked
+// changes list classes appropriately
 document.querySelector('.list_container').addEventListener('click', event => {
     const currentBandNumber = Number(event.target.parentElement.id);
-    if (event.target.classList.contains('up') && event.target.parentElement.id !== '1') {
+    if (event.target.classList.contains('up') && currentBandNumber !== 1) {
         const currentBand = document.querySelectorAll('.up')[currentBandNumber - 1].parentElement;
+        const parentEl = currentBand.parentElement;
         const previousBand = document.querySelectorAll('.up')[currentBandNumber - 2].parentElement;
         event.target.parentElement.id = `${currentBandNumber - 1}`;
         previousBand.id = `${currentBandNumber}`;
-        const parentEl = currentBand.parentElement;
         parentEl.insertBefore(currentBand, previousBand);
+    }
+})
+
+// 1. Replicate and adjust functionality above for down button and delete button. 
+// 2. a. Need to learn RegEx so you can replace part of a string. Then replace the numbered part of the band name string to the appropriate number when moved.  
+// 2. b. You could also move the numbers to another element that is static and doesn't change since the numbers in the list should never move.
+
+// moves band name down the list when down button clicked
+// doesn't do anything if last list item is clicked
+// changes list classes appropriately
+document.querySelector('.list_container').addEventListener('click', event => {
+    const currentBandNumber = Number(event.target.parentElement.id);
+    if (event.target.classList.contains('down') && currentBandNumber !== document.querySelectorAll('.down').length) {
+        const currentBand = document.querySelectorAll('.down')[currentBandNumber - 1].parentElement;
+        const parentEl = currentBand.parentElement;
+        const nextBand = document.querySelectorAll('.down')[currentBandNumber].parentElement;
+        event.target.parentElement.id = `${currentBandNumber + 1}`;
+        nextBand.id = `${currentBandNumber}`;
+        parentEl.insertBefore(nextBand, currentBand);
+    }
+})
+
+// removes band name when delete button is clicked
+// adjusts classes of other bands appropriately
+document.querySelector('.list_container').addEventListener('click', event => {
+    const currentBandNumber = Number(event.target.parentElement.id);
+    if (event.target.classList.contains('delete')) {
+        const currentBand = document.querySelectorAll('.delete')[currentBandNumber - 1].parentElement;
+        currentBand.remove();
     }
 })
