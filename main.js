@@ -13,12 +13,18 @@ const takeNumber = function (bandName) {
     return bandNumber++ + '. ' + bandName;
 }        
 
-document.querySelector('#addBand').addEventListener("click", event => {
+document.querySelector('#addBand').addEventListener('click', event => {
     const bandName = document.querySelector('#bandName').value;
     if (bandName !== '') {
-        bandList.innerHTML += `<li id="${bandNumber}"><button class="up">⯅</button><button class="down">⯆</button><p>${takeNumber(bandName)}</p><button class="delete">⛔</button></li>`;
+        if (document.querySelector('.bandList').hasChildNodes) {
+            const allBands = document.querySelector('.bandList').childNodes;
+            const lastID = allBands.length;
+            bandList.innerHTML += `<li id="${lastID + 1}"><button class="up">⯅</button><button class="down">⯆</button><p>${takeNumber(bandName)}</p><button class="delete">⛔</button></li>`;
+        } else {
+            bandList.innerHTML += `<li id="1"><button class="up">⯅</button><button class="down">⯆</button><p>${takeNumber(bandName)}</p><button class="delete">⛔</button></li>`;
+        }
     }
-});
+})
 
 // moves band name up the list when up button clicked
 // doesn't do anything if first list item is clicked
@@ -35,7 +41,6 @@ document.querySelector('.list_container').addEventListener('click', event => {
     }
 })
 
-// 1. Replicate and adjust functionality above for down button and delete button. 
 // 2. a. Need to learn RegEx so you can replace part of a string. Then replace the numbered part of the band name string to the appropriate number when moved.  
 // 2. b. You could also move the numbers to another element that is static and doesn't change since the numbers in the list should never move.
 
@@ -70,3 +75,4 @@ document.querySelector('.list_container').addEventListener('click', event => {
     }
 })
 
+// id number of list item added from 'add band' button will be 1 if no list items, or the last list item's id + 1
