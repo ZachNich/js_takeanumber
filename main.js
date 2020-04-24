@@ -7,7 +7,6 @@ document.querySelector('.instructions').innerHTML += `<p>Enter a band name below
 // outputs ordered numbers (1, 2, 3, etc.) before band name to make a list
 // outputs up and down buttons to the left, delete button to the right of band name
 // no  output if no name given
-
 const bandList = document.querySelector('.bandList');
 let bandNumber = 1;
 const takeNumber = function (bandName) {
@@ -60,7 +59,14 @@ document.querySelector('.list_container').addEventListener('click', event => {
 document.querySelector('.list_container').addEventListener('click', event => {
     const currentBandNumber = Number(event.target.parentElement.id);
     if (event.target.classList.contains('delete')) {
+        const allBands = document.querySelector('.bandList').childNodes;
+        for (let i = 0; i < allBands.length; i++) {
+            if (i >= currentBandNumber) {
+                allBands[i].id = i;
+            }
+        }
         const currentBand = document.querySelectorAll('.delete')[currentBandNumber - 1].parentElement;
         currentBand.remove();
     }
 })
+
